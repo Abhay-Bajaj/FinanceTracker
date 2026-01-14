@@ -1,0 +1,11 @@
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# SQLite database (optional but recommended)
+data/*.db
