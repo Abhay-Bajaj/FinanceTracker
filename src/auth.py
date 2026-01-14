@@ -52,7 +52,7 @@ def render_signup(show_title: bool = True):
 
     errors = []
 
-    # -------- Username rules --------
+    # Username rules
     if not username:
         errors.append("• Username is required.")
     elif not re.fullmatch(r"[A-Za-z0-9]{5,20}", username):
@@ -64,11 +64,11 @@ def render_signup(show_title: bool = True):
             "• There’s already an account with this username. Please sign in instead."
         )
 
-    # -------- Full name --------
+    # Full name
     if not name:
         errors.append("• Full name is required.")
 
-    # -------- Password rules --------
+    # Password rules
     if not password:
         errors.append("• Password is required.")
     else:
@@ -81,21 +81,20 @@ def render_signup(show_title: bool = True):
         if not re.search(r"[^A-Za-z0-9]", password):
             errors.append("• Password must include at least one special character.")
 
-    # -------- Confirm password --------
+    # Confirm password
     if password and password != confirm:
         errors.append("• Passwords do not match.")
 
-    # -------- Show all errors at once --------
+    # Show all errors at once
     if errors:
         st.error("Please fix the following issues:")
         for err in errors:
             st.write(err)
         return
 
-    # -------- Create account --------
+    # Create account
     password_hash = stauth.Hasher([password]).generate()[0]
 
-    # Email removed from UI; DB column is NOT NULL
     create_user(
         username=username,
         name=name,

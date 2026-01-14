@@ -69,7 +69,7 @@ def init_db():
             """
         )
 
-        # ---- Migrations for older DBs ----
+        # Migrations for older DBs
         if not _column_exists(conn, "transactions", "user_id"):
             conn.execute("ALTER TABLE transactions ADD COLUMN user_id INTEGER;")
 
@@ -82,7 +82,7 @@ def init_db():
         conn.commit()
 
 
-# -------------------- User helpers --------------------
+# User helpers
 def user_exists(username: str) -> bool:
     with get_conn() as conn:
         row = conn.execute(
@@ -121,7 +121,7 @@ def fetch_users():
     return rows
 
 
-# -------------------- Transactions --------------------
+# Transactions
 def add_transaction(
     user_id: int,
     date: str,

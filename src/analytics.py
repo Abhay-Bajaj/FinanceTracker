@@ -16,12 +16,10 @@ def rows_to_df(rows):
 
     df = pd.DataFrame([dict(r) for r in rows])
 
-    # Ensure expected columns exist (guest mode may omit user_id/created_at)
     for col in ["id", "user_id", "created_at", "merchant", "notes"]:
         if col not in df.columns:
             df[col] = None
 
-    # Parse date safely for .dt operations
     df["date"] = pd.to_datetime(df["date"], errors="coerce")
 
     # If any date failed parsing, drop those rows (prevents .dt errors)
@@ -54,7 +52,6 @@ def monthly_summary(df: pd.DataFrame, month_key: str):
     if df.empty:
         return empty_cat, empty_day, 0.0, 0.0, 0.0, 0.0
 
-    # Ensure date is datetime (in case df came from elsewhere)
     df = df.copy()
     df["date"] = pd.to_datetime(df["date"], errors="coerce")
     df = df.dropna(subset=["date"])
@@ -70,7 +67,7 @@ def monthly_summary(df: pd.DataFrame, month_key: str):
     total_expenses = float(exp_df["amount"].sum()) if not exp_df.empty else 0.0
 
     net = total_income - total_expenses
-    remaining = net  # optional feature; keep raw net as "remaining"
+    remaining = net
 
     by_cat_expenses = (
         exp_df.groupby("category", as_index=False)["amount"]

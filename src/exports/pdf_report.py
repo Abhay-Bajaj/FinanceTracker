@@ -16,7 +16,8 @@ def build_dashboard_pdf_bytes(
     by_cat: pd.DataFrame,
     by_day: pd.DataFrame,
 ) -> bytes:
-    # -------------------- Download Dashboard PDF (report) --------------------
+    
+    # Download Monthly Dashboard PDF (report)
     def _money(x: float) -> str:
         return f"${float(x):,.2f}"
 

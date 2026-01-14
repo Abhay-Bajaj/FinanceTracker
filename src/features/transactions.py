@@ -74,11 +74,9 @@ def render_transactions_tab(logged_in: bool, user_id: Optional[int], categories:
                 | df_view["notes"].fillna("").str.lower().str.contains(s)
             ]
 
-        # Display-only formatting for amount column
         df_display = df_view.copy()
         df_display["amount"] = df_display["amount"].apply(lambda x: f"${float(x):,.2f}")
 
-        # Sort, then reset index to start at 1 for display
         df_display = (
             df_display.sort_values("date", ascending=False)
             .reset_index(drop=True)

@@ -11,7 +11,6 @@ def render_add_entry_tab(logged_in: bool, user_id: Optional[int], categories: li
 
     category_options = [" "] + categories
 
-    # Apply pending formatted value BEFORE the widget is created (required inside forms)
     if "amount_input_pending" in st.session_state:
         st.session_state["amount_input"] = st.session_state.pop("amount_input_pending")
 
@@ -70,6 +69,5 @@ def render_add_entry_tab(logged_in: bool, user_id: Optional[int], categories: li
 
             st.success("Saved!")
 
-            # Auto-format AFTER valid save, safely (applied on next rerun)
             st.session_state["amount_input_pending"] = f"{amount:.2f}"
             st.rerun()
